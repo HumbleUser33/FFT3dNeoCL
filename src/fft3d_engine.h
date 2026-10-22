@@ -15,6 +15,9 @@
 #include "helper.h"
 #include "buffer.h"
 #include "cache.hpp"
+#ifdef FFT3D_DUMP
+#include "neocl_dump.hpp"
+#endif
 #include <atomic>
 #include <thread>
 #include <unordered_map>
@@ -407,6 +410,48 @@ public:
     // make FFT 2D
     fftfp.fftwf_execute_dft_r2c(plan1, in, gridsample);
 
+#ifdef FFT3D_DUMP // NEOCL-DUMP: engine tables (no numeric effect)
+    DUMP_BUF("win_wanxl", plane, -1, iop->wanxl, (size_t)ep->ow * sizeof(float));
+    DUMP_BUF("win_wanxr", plane, -1, iop->wanxr, (size_t)ep->ow * sizeof(float));
+    DUMP_BUF("win_wanyl", plane, -1, iop->wanyl, (size_t)ep->oh * sizeof(float));
+    DUMP_BUF("win_wanyr", plane, -1, iop->wanyr, (size_t)ep->oh * sizeof(float));
+    DUMP_BUF("win_wsynxl", plane, -1, iop->wsynxl, (size_t)ep->ow * sizeof(float));
+    DUMP_BUF("win_wsynxr", plane, -1, iop->wsynxr, (size_t)ep->ow * sizeof(float));
+    DUMP_BUF("win_wsynyl", plane, -1, iop->wsynyl, (size_t)ep->oh * sizeof(float));
+    DUMP_BUF("win_wsynyr", plane, -1, iop->wsynyr, (size_t)ep->oh * sizeof(float));
+    DUMP_BUF("wsharpen", plane, -1, wsharpen, (size_t)ep->bh * outpitch * sizeof(float));
+    DUMP_BUF("wdehalo", plane, -1, wdehalo, (size_t)ep->bh * outpitch * sizeof(float));
+    DUMP_BUF("pwin", plane, -1, pwin, (size_t)ep->bh * outpitch * sizeof(float));
+    DUMP_BUF("gridsample", plane, -1, gridsample, (size_t)outsize * sizeof(fftwf_complex));
+    DUMP_BUF("pattern2d", plane, -1, pattern2d, (size_t)ep->bh * outpitch * sizeof(float));
+    DUMP_SCAL("norm", plane, -1, norm);
+    DUMP_SCAL("pfactor", plane, -1, ep->pfactor);
+    DUMP_SCAL("sigmaSquaredNoiseNormed2D", plane, -1, sigmaSquaredNoiseNormed2D);
+    DUMP_SCAL("sigmaNoiseNormed2D", plane, -1, sigmaNoiseNormed2D);
+    DUMP_SCAL("sigmaMotionNormed", plane, -1, sigmaMotionNormed);
+    DUMP_SCAL("sigmaSquaredSharpenMinNormed", plane, -1, sigmaSquaredSharpenMinNormed);
+    DUMP_SCAL("sigmaSquaredSharpenMaxNormed", plane, -1, sigmaSquaredSharpenMaxNormed);
+    DUMP_SCAL("ht2n", plane, -1, ht2n);
+    if (ep->bt == 0) {
+      DUMP_BUF("kalman_outLast_init", plane, -1, outLast, (size_t)outsize * sizeof(fftwf_complex));
+      DUMP_BUF("kalman_covar_init", plane, -1, covar, (size_t)outsize * sizeof(fftwf_complex));
+      DUMP_BUF("kalman_covarProcess_init", plane, -1, covarProcess, (size_t)outsize * sizeof(fftwf_complex));
+    }
+    {
+      char m[1024];
+      snprintf(m, sizeof(m), "%s/geom_p%d.txt", neocl_dump::dir(), plane);
+      FILE* f = fopen(m, "wb");
+      if (f) {
+        fprintf(f, "nox=%d\nnoy=%d\noutwidth=%d\noutpitch=%d\ninsize=%d\noutsize=%d\ncoverwidth=%d\ncoverheight=%d\ncoverpitch=%d\nmirw=%d\nmirh=%d\nbw=%d\nbh=%d\now=%d\noh=%d\nbt=%d\ninterlaced=%d\nwintype=%d\nplaneBase=%d\nl=%d\nt=%d\nr=%d\nb=%d\n",
+                iop->nox, iop->noy, outwidth, outpitch, insize, outsize,
+                coverwidth, coverheight, coverpitch, mirw, mirh, ep->bw, ep->bh, ep->ow, ep->oh, ep->bt,
+                (int)ep->interlaced, ep->wintype,
+                ep->IsChroma && ep->vi.Format.BytesPerSample < 4 ? (1 << (ep->vi.Format.BitsPerSample - 1)) : 0,
+                ep->l, ep->t, ep->r, ep->b);
+        fclose(f);
+      }
+    }
+#endif
 
   }
   ~FFT3DEngine() {
@@ -520,6 +565,10 @@ public:
             if (ep->px == 0 && ep->py == 0)
               FindPatternBlock(outrez, outwidth, outpitch, ep->bh, iop->nox, iop->noy, ep->px, ep->py, pwin, ep->degrid, gridsample);
             SetPattern(outrez, outwidth, outpitch, ep->bh, iop->nox, iop->noy, ep->px, ep->py, pwin, pattern2d, psigma, ep->degrid, gridsample);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+            DUMP_BUF("pattern2d_est", plane, n, pattern2d, (size_t)ep->bh * outpitch * sizeof(float));
+            DUMP_SCAL("psigma", plane, n, psigma);
+#endif
                     isPatternSet.store(true, std::memory_order_release);
           }
         }   
@@ -633,11 +682,23 @@ public:
       {
         // cur frame
         FrameToCover(ep, plane, sptr, coverbuf, coverwidth, coverheight, coverpitch, mirw, mirh, src_pitch);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+        DUMP_BUF("cover", plane, n, coverbuf, (size_t)coverheight * coverpitch * ep->vi.Format.BytesPerSample);
+#endif
         CoverToOverlap(ep, iop, in, coverbuf, coverwidth, coverpitch, ep->IsChroma);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+        DUMP_BUF("in", plane, n, in, (size_t)insize * sizeof(float));
+#endif
         fftfp.fftwf_execute_dft_r2c(plan, in, outrez);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+        DUMP_BUF("fft", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
         ffp.Apply2D(outrez, sfp);
         if (ep->pfactor != 0)
           ffp.Sharpen(outrez, sfp);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+        DUMP_BUF("applied", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
       }
       else // 3D
       {
@@ -693,6 +754,9 @@ public:
             FrameToCover(ep, plane, pframe->SrcPointers[plane], coverbuf, coverwidth, coverheight, coverpitch, mirw, mirh, src_pitch_3d);
             CoverToOverlap(ep, iop, in, coverbuf, coverwidth, coverpitch, ep->IsChroma);
             fftfp.fftwf_execute_dft_r2c(plan, in, apply_in[2+i]);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+            DUMP_BUF("fft_nb", plane, n + i, apply_in[2 + i], (size_t)outsize * sizeof(fftwf_complex));
+#endif
           }
         }
 
@@ -700,13 +764,25 @@ public:
 
         ffp.Apply3D(apply_in, outrez, sfp);
         ffp.Sharpen(outrez, sfp);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+        DUMP_BUF("applied", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
       }
 
       // do inverse FFT, get filtered 'in' array
       fftfp.fftwf_execute_dft_c2r(planinv, outrez, in);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("inv", plane, n, in, (size_t)insize * sizeof(float));
+#endif
       // make destination frame plane from current overlaped blocks
       OverlapToCover(ep, iop, in, norm, coverbuf, coverwidth, coverpitch, ep->IsChroma);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("coverout", plane, n, coverbuf, (size_t)coverheight * coverpitch * ep->vi.Format.BytesPerSample);
+#endif
       CoverToFrame(ep, plane, coverbuf, coverwidth, coverheight, coverpitch, dptr, mirw, mirh, dst_pitch);
+#ifdef FFT3D_DUMP // NEOCL-DUMP: engine's own output buffer after CoverToFrame
+      DUMP_BUF("frameout", plane, n, dptr, (size_t)dst_pitch * ep->vi.Format.BytesPerSample * ep->frameheight);
+#endif
     }
     else if (ep->bt == 0) //Kalman filter
     {
@@ -728,30 +804,63 @@ public:
       FrameToCover(ep, plane, sptr, coverbuf, coverwidth, coverheight, coverpitch, mirw, mirh, src_pitch);
       CoverToOverlap(ep, iop, in, coverbuf, coverwidth, coverpitch, ep->IsChroma);
       fftfp.fftwf_execute_dft_r2c(plan, in, outrez);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("fft", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
       ffp.Kalman(outrez, outLast, sfp);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("kalman_outLast", plane, n, outLast, (size_t)outsize * sizeof(fftwf_complex));
+#endif
 
       // copy outLast to outrez
       memcpy(outrez, outLast, outsize * sizeof(fftwf_complex));  //v.0.9.2
       ffp.Sharpen(outrez, sfp);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("applied", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
       // do inverse FFT 2D, get filtered 'in' array
       // note: input "out" array is destroyed by execute algo.
       // that is why we must have its copy in "outLast" array
       fftfp.fftwf_execute_dft_c2r(planinv, outrez, in);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("inv", plane, n, in, (size_t)insize * sizeof(float));
+#endif
       // make destination frame plane from current overlaped blocks
       OverlapToCover(ep, iop, in, norm, coverbuf, coverwidth, coverpitch, ep->IsChroma);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("coverout", plane, n, coverbuf, (size_t)coverheight * coverpitch * ep->vi.Format.BytesPerSample);
+#endif
       CoverToFrame(ep, plane, coverbuf, coverwidth, coverheight, coverpitch, dptr, mirw, mirh, dst_pitch);
 
     }
     else if (ep->bt == -1) /// sharpen only
     {
       FrameToCover(ep, plane, sptr, coverbuf, coverwidth, coverheight, coverpitch, mirw, mirh, src_pitch);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("cover", plane, n, coverbuf, (size_t)coverheight * coverpitch * ep->vi.Format.BytesPerSample);
+#endif
       CoverToOverlap(ep, iop, in, coverbuf, coverwidth, coverpitch, ep->IsChroma);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("in", plane, n, in, (size_t)insize * sizeof(float));
+#endif
       fftfp.fftwf_execute_dft_r2c(plan, in, outrez);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("fft", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
       ffp.Sharpen(outrez, sfp);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("applied", plane, n, outrez, (size_t)outsize * sizeof(fftwf_complex));
+#endif
       // do inverse FFT 2D, get filtered 'in' array
       fftfp.fftwf_execute_dft_c2r(planinv, outrez, in);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("inv", plane, n, in, (size_t)insize * sizeof(float));
+#endif
       // make destination frame plane from current overlaped blocks
       OverlapToCover(ep, iop, in, norm, coverbuf, coverwidth, coverpitch, ep->IsChroma);
+#ifdef FFT3D_DUMP // NEOCL-DUMP
+      DUMP_BUF("coverout", plane, n, coverbuf, (size_t)coverheight * coverpitch * ep->vi.Format.BytesPerSample);
+#endif
       CoverToFrame(ep, plane, coverbuf, coverwidth, coverheight, coverpitch, dptr, mirw, mirh, dst_pitch);
     }
 
