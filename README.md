@@ -76,7 +76,7 @@ Put `fft3dneocl.dll` in your VapourSynth plugins directory, then:
 ```python
 import vapoursynth as vs
 core = vs.core
-clip = core.ffmpegsource.VideoSource("input.mkv")
+clip = core.ffms2.VideoSource("input.mkv")
 clip = core.fft3dneocl.FFT3D(clip, bt=3, sigma=2.0, bw=32, bh=32)
 clip.set_output()
 ```
