@@ -1,0 +1,10 @@
+width=1920
+height=1080
+planes=1
+ssw=0
+ssh=0
+bitdepth=8
+bytespersample=1
+float=0
+frames=30
+seed=5

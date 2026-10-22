@@ -1,0 +1,96 @@
+
+=== seq 171 / P1 leger ===
+neocl  : 55.61 ms/img   RAM 5706 MB  VRAM 2451 MB  det=True
+fft3dcl: 66.35 ms/img   RAM 8485 MB  VRAM 1556 MB  det=True
+CPU    : 242.04 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.0011296778549382716%  maxabs 1.0  PSNR 109.67
+  qualite cl vs CPU : diff 66.88191283007545%  maxabs 19.0  PSNR 56.11
+  qualite neocl vs cl : diff 66.8819207336677%  maxabs 19.0  PSNR 56.11
+
+=== seq 171 / P2 moyen ===
+neocl  : 53.79 ms/img   RAM 5766 MB  VRAM 2440 MB  det=True
+fft3dcl: 64.64 ms/img   RAM 8266 MB  VRAM 1554 MB  det=True
+CPU    : 271.28 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.001132758916323731%  maxabs 1.0  PSNR 109.66
+  qualite cl vs CPU : diff 71.45302828146434%  maxabs 27.0  PSNR 53.58
+  qualite neocl vs cl : diff 71.45302265517833%  maxabs 27.0  PSNR 53.58
+
+=== seq 171 / P3 pousse ===
+neocl  : 60.34 ms/img   RAM 5157 MB  VRAM 2439 MB  det=True
+fft3dcl: 65.82 ms/img   RAM 8697 MB  VRAM 1555 MB  det=True
+CPU    : 314.19 ms/img   RAM 3056 MB
+  qualite neocl vs CPU : diff 0.0011236496913580247%  maxabs 1.0  PSNR 109.69
+  qualite cl vs CPU : diff 73.03852076903293%  maxabs 70.0  PSNR 51.56
+  qualite neocl vs cl : diff 73.03850750707305%  maxabs 70.0  PSNR 51.56
+
+=== seq 171 / P4 bt=5 ===
+neocl  : 67.4 ms/img   RAM 5720 MB  VRAM 2851 MB  det=True
+fft3dcl: bt=5 non supporte (bt valide : -1..4)
+CPU    : 315.2 ms/img   RAM 3476 MB
+  qualite neocl vs CPU : diff 0.0011071727109053498%  maxabs 1.0  PSNR 109.76
+Traceback (most recent call last):
+  File "C:\Users\Bruno\Desktop\OpenCode\FFT3DNEOCL\tools\bench_compare.py", line 66, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\Bruno\Desktop\OpenCode\FFT3DNEOCL\tools\bench_compare.py", line 24, in main
+    fa, fb = open(a_path, "rb"), open(b_path, "rb")
+                                 ^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '3840'
+  qualite neocl vs cl : diff %  maxabs   PSNR 
+
+=== seq 171 / P5 2 passes ===
+neocl  : p1 56.9 + p2 46.87 ms/img   RAM 6150 MB  VRAM 1541 MB  det=True
+fft3dcl: p1 67.45 + p2 50.22 ms/img   RAM 8938 MB  VRAM 1043 MB  det=True
+CPU    : p1 282.06 + p2 185.87 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.008091403034979424%  maxabs 1.0  PSNR 101.12
+  qualite cl vs CPU : diff 71.91568139681927%  maxabs 33.0  PSNR 52.38
+  qualite neocl vs cl : diff 71.91571729788237%  maxabs 33.0  PSNR 52.38
+
+=== seq 419 / P1 leger ===
+neocl  : 55.98 ms/img   RAM 5910 MB  VRAM 2440 MB  det=True
+fft3dcl: 67.69 ms/img   RAM 8939 MB  VRAM 1543 MB  det=True
+CPU    : 272.19 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.0010901598936899862%  maxabs 1.0  PSNR 109.82
+  qualite cl vs CPU : diff 69.66012115269204%  maxabs 20.0  PSNR 54.94
+  qualite neocl vs cl : diff 69.66012088477366%  maxabs 20.0  PSNR 54.94
+
+=== seq 419 / P2 moyen ===
+neocl  : 50.69 ms/img   RAM 5337 MB  VRAM 2439 MB  det=True
+fft3dcl: 57.25 ms/img   RAM 7999 MB  VRAM 1555 MB  det=True
+CPU    : 240.66 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.0010841317301097393%  maxabs 1.0  PSNR 109.85
+  qualite cl vs CPU : diff 75.7121164748371%  maxabs 33.0  PSNR 50.87
+  qualite neocl vs cl : diff 75.71211727859225%  maxabs 33.0  PSNR 50.87
+
+=== seq 419 / P3 pousse ===
+neocl  : 52.76 ms/img   RAM 5234 MB  VRAM 2439 MB  det=True
+fft3dcl: 57.63 ms/img   RAM 8872 MB  VRAM 1554 MB  det=True
+CPU    : 273.13 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.0010858731995884773%  maxabs 1.0  PSNR 109.84
+  qualite cl vs CPU : diff 78.9913675357939%  maxabs 87.0  PSNR 46.99
+  qualite neocl vs cl : diff 78.99136525848765%  maxabs 87.0  PSNR 46.99
+
+=== seq 419 / P4 bt=5 ===
+neocl  : 57.18 ms/img   RAM 5284 MB  VRAM 2863 MB  det=True
+fft3dcl: bt=5 non supporte (bt valide : -1..4)
+CPU    : 291.92 ms/img   RAM 3468 MB
+  qualite neocl vs CPU : diff 0.001086409036351166%  maxabs 1.0  PSNR 109.84
+Traceback (most recent call last):
+  File "C:\Users\Bruno\Desktop\OpenCode\FFT3DNEOCL\tools\bench_compare.py", line 66, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\Bruno\Desktop\OpenCode\FFT3DNEOCL\tools\bench_compare.py", line 24, in main
+    fa, fb = open(a_path, "rb"), open(b_path, "rb")
+                                 ^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '3840'
+  qualite neocl vs cl : diff %  maxabs   PSNR 
+
+=== seq 419 / P5 2 passes ===
+neocl  : p1 58.48 + p2 47.63 ms/img   RAM 6062 MB  VRAM 1540 MB  det=True
+fft3dcl: p1 67.26 + p2 51.13 ms/img   RAM 8791 MB  VRAM 1057 MB  det=True
+CPU    : p1 276.86 + p2 182.79 ms/img   RAM 3057 MB
+  qualite neocl vs CPU : diff 0.009856181412894375%  maxabs 1.0  PSNR 100.26
+  qualite cl vs CPU : diff 77.58580863125857%  maxabs 46.0  PSNR 48.84
+  qualite neocl vs cl : diff 77.58580273705418%  maxabs 46.0  PSNR 48.84
+
+Resultats ecrits dans tests\bench_real\results.json

@@ -1,0 +1,21 @@
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=3 sharpen=0.25
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=3 sharpen=0.5
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=3 sharpen=0.75
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=3 sharpen=1
+OK cl  bt=3 sigma=3 sharpen=0.25
+OK cl  bt=3 sigma=3 sharpen=0.5
+OK cl  bt=3 sigma=3 sharpen=0.75
+OK cl  bt=3 sigma=3 sharpen=1
+Termine (B)

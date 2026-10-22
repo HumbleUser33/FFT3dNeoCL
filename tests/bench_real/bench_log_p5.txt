@@ -1,0 +1,18 @@
+
+=== seq 171 / P5 2 passes ===
+neocl  : p1 57.73 + p2 45.95 ms/img   RAM 5870 MB  VRAM p1 2440 / p2 1540 MB  det=True
+fft3dcl: p1 66.84 + p2 50.73 ms/img   RAM 8991 MB  VRAM p1 1558 / p2 1100 MB  det=True
+CPU    : p1 264.98 + p2 193.58 ms/img   RAM 3053 MB
+  qualite neocl vs CPU : diff 0.008091403034979424%  maxabs 1.0  PSNR 101.12
+  qualite cl vs CPU : diff 71.91568139681927%  maxabs 33.0  PSNR 52.38
+  qualite neocl vs cl : diff 71.91571729788237%  maxabs 33.0  PSNR 52.38
+
+=== seq 419 / P5 2 passes ===
+neocl  : p1 58.5 + p2 47.73 ms/img   RAM 6058 MB  VRAM p1 2439 / p2 1538 MB  det=True
+fft3dcl: p1 67.14 + p2 51.74 ms/img   RAM 8420 MB  VRAM p1 1545 / p2 1046 MB  det=True
+CPU    : p1 247.25 + p2 163.72 ms/img   RAM 3049 MB
+  qualite neocl vs CPU : diff 0.009856181412894375%  maxabs 1.0  PSNR 100.26
+  qualite cl vs CPU : diff 77.58580863125857%  maxabs 46.0  PSNR 48.84
+  qualite neocl vs cl : diff 77.58580273705418%  maxabs 46.0  PSNR 48.84
+
+Resultats ecrits dans tests\bench_real\results.json

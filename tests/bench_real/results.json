@@ -1,0 +1,142 @@
+﻿[
+    {
+        "det":  true,
+        "vram2":  1540,
+        "filter":  "fft3dneocl",
+        "vram":  2440,
+        "ram":  5870,
+        "seq":  171,
+        "ms":  103.68,
+        "ms2":  45.95,
+        "preset":  "P5 2 passes",
+        "ms1":  57.73,
+        "vram1":  2440,
+        "out":  "C:\\Users\\Bruno\\Desktop\\OpenCode\\FFT3DNEOCL\\tests\\bench_real\\seq171\\P5_neocl_p2.raw"
+    },
+    {
+        "det":  true,
+        "vram2":  1100,
+        "filter":  "fft3dcl",
+        "vram":  1558,
+        "ram":  8991,
+        "seq":  171,
+        "ms":  117.57,
+        "ms2":  50.73,
+        "preset":  "P5 2 passes",
+        "ms1":  66.84,
+        "vram1":  1558,
+        "out":  "C:\\Users\\Bruno\\Desktop\\OpenCode\\FFT3DNEOCL\\tests\\bench_real\\seq171\\P5_cl_p2.raw"
+    },
+    {
+        "det":  true,
+        "filter":  "neo-fft3d (CPU)",
+        "vram":  null,
+        "ram":  3053,
+        "seq":  171,
+        "ms":  458.56000000000006,
+        "ms2":  193.58,
+        "preset":  "P5 2 passes",
+        "ms1":  264.98,
+        "out":  "C:\\Users\\Bruno\\Desktop\\OpenCode\\FFT3DNEOCL\\tests\\bench_real\\seq171\\P5_cpu_p2.raw"
+    },
+    {
+        "seq":  171,
+        "identical":  false,
+        "filter":  "qualite neocl vs CPU",
+        "pct":  0.008,
+        "preset":  "P5 2 passes",
+        "maxabs":  1.0,
+        "mae":  0.0001,
+        "psnr":  101.12
+    },
+    {
+        "seq":  171,
+        "identical":  false,
+        "filter":  "qualite cl vs CPU",
+        "pct":  71.916,
+        "preset":  "P5 2 passes",
+        "maxabs":  33.0,
+        "mae":  1.7014,
+        "psnr":  52.38
+    },
+    {
+        "seq":  171,
+        "identical":  false,
+        "filter":  "qualite neocl vs cl",
+        "pct":  71.916,
+        "preset":  "P5 2 passes",
+        "maxabs":  33.0,
+        "mae":  1.7014,
+        "psnr":  52.38
+    },
+    {
+        "det":  true,
+        "vram2":  1538,
+        "filter":  "fft3dneocl",
+        "vram":  2439,
+        "ram":  6058,
+        "seq":  419,
+        "ms":  106.22999999999999,
+        "ms2":  47.73,
+        "preset":  "P5 2 passes",
+        "ms1":  58.5,
+        "vram1":  2439,
+        "out":  "C:\\Users\\Bruno\\Desktop\\OpenCode\\FFT3DNEOCL\\tests\\bench_real\\seq419\\P5_neocl_p2.raw"
+    },
+    {
+        "det":  true,
+        "vram2":  1046,
+        "filter":  "fft3dcl",
+        "vram":  1545,
+        "ram":  8420,
+        "seq":  419,
+        "ms":  118.88,
+        "ms2":  51.74,
+        "preset":  "P5 2 passes",
+        "ms1":  67.14,
+        "vram1":  1545,
+        "out":  "C:\\Users\\Bruno\\Desktop\\OpenCode\\FFT3DNEOCL\\tests\\bench_real\\seq419\\P5_cl_p2.raw"
+    },
+    {
+        "det":  true,
+        "filter":  "neo-fft3d (CPU)",
+        "vram":  null,
+        "ram":  3049,
+        "seq":  419,
+        "ms":  410.97,
+        "ms2":  163.72,
+        "preset":  "P5 2 passes",
+        "ms1":  247.25,
+        "out":  "C:\\Users\\Bruno\\Desktop\\OpenCode\\FFT3DNEOCL\\tests\\bench_real\\seq419\\P5_cpu_p2.raw"
+    },
+    {
+        "seq":  419,
+        "identical":  false,
+        "filter":  "qualite neocl vs CPU",
+        "pct":  0.010,
+        "preset":  "P5 2 passes",
+        "maxabs":  1.0,
+        "mae":  0.0001,
+        "psnr":  100.26
+    },
+    {
+        "seq":  419,
+        "identical":  false,
+        "filter":  "qualite cl vs CPU",
+        "pct":  77.586,
+        "preset":  "P5 2 passes",
+        "maxabs":  46.0,
+        "mae":  2.6147,
+        "psnr":  48.84
+    },
+    {
+        "seq":  419,
+        "identical":  false,
+        "filter":  "qualite neocl vs cl",
+        "pct":  77.586,
+        "preset":  "P5 2 passes",
+        "maxabs":  46.0,
+        "mae":  2.6147,
+        "psnr":  48.84
+    }
+]

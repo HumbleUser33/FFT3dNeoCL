@@ -1,0 +1,71 @@
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=1.5
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=2
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=2.5
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=3
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=3.5
+fft3dneocl: 2593.3 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+fft3dneocl: 660.7 MiB of device buffers
+OK neo bt=3 sigma=4
+OK cl  bt=3 sigma=1
+OK cl  bt=3 sigma=1.25
+OK cl  bt=3 sigma=1.5
+OK cl  bt=3 sigma=1.75
+OK cl  bt=3 sigma=2
+OK cl  bt=3 sigma=2.25
+OK cl  bt=3 sigma=2.5
+OK cl  bt=3 sigma=2.75
+OK cl  bt=3 sigma=3
+OK cl  bt=3 sigma=3.5
+OK cl  bt=3 sigma=4
+fft3dneocl: 2849.3 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+OK neo bt=4 sigma=1.5
+fft3dneocl: 2849.3 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+OK neo bt=4 sigma=2
+fft3dneocl: 2849.3 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+OK neo bt=4 sigma=2.5
+fft3dneocl: 2849.3 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+OK neo bt=4 sigma=3
+fft3dneocl: 2849.3 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+OK neo bt=4 sigma=3.5
+fft3dneocl: 2849.3 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+fft3dneocl: 725.9 MiB of device buffers
+OK neo bt=4 sigma=4
+OK cl  bt=4 sigma=1
+OK cl  bt=4 sigma=1.25
+OK cl  bt=4 sigma=1.5
+OK cl  bt=4 sigma=1.75
+OK cl  bt=4 sigma=2
+OK cl  bt=4 sigma=2.25
+OK cl  bt=4 sigma=2.5
+OK cl  bt=4 sigma=2.75
+OK cl  bt=4 sigma=3
+OK cl  bt=4 sigma=3.5
+OK cl  bt=4 sigma=4
+Termine (A)

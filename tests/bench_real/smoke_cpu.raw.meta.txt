@@ -1,0 +1,10 @@
+width=3840
+height=2160
+planes=3
+ssw=1
+ssh=1
+bitdepth=10
+bytespersample=2
+float=0
+frames=5
+seed=12345

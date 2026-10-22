@@ -1,0 +1,10 @@
+width=64
+height=64
+planes=1
+ssw=0
+ssh=0
+bitdepth=16
+bytespersample=2
+float=0
+frames=1
+seed=7

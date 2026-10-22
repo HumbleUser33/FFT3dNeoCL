@@ -70,3 +70,15 @@ ipch/
 *.vsp
 *.vspx
 *.sap
+
+
+
+# --- FFT3dNeoCL additions ---
+build/
+# Python
+__pycache__/
+
+# Generated test outputs (regenerate with tools/regen_fixtures.ps1,
+# tools/run_bench_report.ps1, tools/bench_export_png.py ...)
+tests/**/plugin_out.raw
+tests/**/*.png
