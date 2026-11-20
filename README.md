@@ -82,7 +82,9 @@ clip.set_output()
 ```
 
 All parameter names, order and defaults are identical to the original
-`neo-fft3d` plugin — see [docs/params.md](docs/params.md) (in French).
+`neo-fft3d` plugin — see the English parameter manual
+[docs/params-en.md](docs/params-en.md), or the original specification
+[docs/params.md](docs/params.md) (in French).
 
 ## Building
 
@@ -104,7 +106,7 @@ each script).
 | `reference/` | CPU reference harness used to validate the port |
 | `tools/` | regression matrix, benchmarks, fixture regeneration |
 | `tests/` | fixtures and result sheets for the 51-test matrix and benchmarks |
-| `docs/` | design, validation and benchmark notes (French) |
+| `docs/` | parameter manual (English and French), design, validation and benchmark notes |
 | `third_party/` | FFTW, OpenCL headers, VapourSynth headers |
 
 ## Documentation
